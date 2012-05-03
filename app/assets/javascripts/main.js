@@ -8,11 +8,13 @@ $(function() {
 });
 
 function populateHighScores() {
-	scores = $.get("http://localhost:3000/scores");
-   $('div#highScores').empty();
-   for (var i = 0; i < scores.length; ++i) {
-    $('div#highScores').append("<p>" + scores.username + " " + scores.score + "</p>");
-  }
+   $.get("http://localhost:3000/scores", function(scores) {
+   		$('div#highScores').empty();
+   		for (var i = 0; i < scores.length; ++i) {
+    		$('div#highScores').append("<p>" + scores[i].username + " " + scores[i].score + "</p>");
+   }
+});
+   
 }
 
 function displayRandom(randomNum) {
@@ -58,12 +60,12 @@ function guessNumber() {
 	var gss = document.forms["guessTheNumber"].elements["guess"].value;
 	
 	if (gss == num) {
-		var username = prompt("You won! Enter your name: ", "Name")
-		if (username == null) {
-			username = "Anonymous";
+		var uname = prompt("You won! Enter your name: ", "Name")
+		if (uname == null) {
+			uname = "Anonymous";
 		}
-		var score = guessesLeft;
-		$.post("http://localhost:3000/scores", {username:txt, score:int});
+		var sc = guessesLeft;
+		$.post("http://localhost:3000/scores", {username:uname, score:sc});
 		populateHighScores();
 		playAgain();
 	}
