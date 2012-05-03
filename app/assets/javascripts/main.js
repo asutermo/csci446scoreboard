@@ -7,7 +7,7 @@ $(function() {
 });
 
 function populateHighScores() {
-   $.get("http://localhost:3000/scores", function(scores) {
+   $.get("http://pure-mist-5689.herokuapp.com/scores", function(scores) {
    		$('div#highScores').empty();
    		for (var i = 0; i < scores.length; ++i) {
     		$('div#highScores').append("<p>" + scores[i].username + " " + scores[i].score + "</p>");
@@ -56,7 +56,7 @@ function guessNumber() {
 			uname = "Anonymous";
 		}
 		var sc = guessesLeft;
-		$.post("http://localhost:3000/scores", {username:uname, score:sc});
+		$.post("http://pure-mist-5689.herokuapp.com/scores", {username:uname, score:sc});
 		populateHighScores();
 		playAgain();
 	}
