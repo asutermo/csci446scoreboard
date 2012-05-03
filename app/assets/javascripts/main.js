@@ -1,5 +1,4 @@
 var guessesLeft = 10;
-var highScores = new Array([1, "This Guy"], [3, "That Guy"], [2, "The Guy"]);
 var num = Math.floor(Math.random() * 100 + 1);
 
 $(function() {
@@ -8,10 +7,11 @@ $(function() {
   displayRandom(num);
 });
 
-function populateHighScores(scores) {
+function populateHighScores() {
+	scores = $.get("localhost:3000/scores");
    $('div#highScores').empty();
    for (var i = 0; i < scores.length; ++i) {
-    $('div#highScores').append("<p>" + scores[i][0] + " " + scores[i][1] + "</p>");
+    $('div#highScores').append("<p>" + scores.username + " " + scores.score + "</p>");
   }
 }
 
@@ -58,13 +58,13 @@ function guessNumber() {
 	var gss = document.forms["guessTheNumber"].elements["guess"].value;
 	
 	if (gss == num) {
-		var name = prompt("You won! Enter your name: ", "Name")
-		if (name == null) {
-			name = "Anonymous";
+		var username = prompt("You won! Enter your name: ", "Name")
+		if (username == null) {
+			username = "Anonymous";
 		}
-		var hs = guessesLeft;
-		highScores.push([hs, name]);
-		populateHighScores(highScores);
+		var score = guessesLeft;
+		$.post("localhost:3000/scores", {username:txt, score:int});
+		populateHighScores();
 		playAgain();
 	}
 	else if (guessesLeft <= 0) {
