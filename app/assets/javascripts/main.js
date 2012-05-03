@@ -1,6 +1,5 @@
 var guessesLeft = 10;
-//var num = Math.floor(Math.random() * 100 + 1);
-var num = 50;
+var num = Math.floor(Math.random() * 100 + 1);
 $(function() {
   updateScore(guessesLeft);
   populateHighScores(highScores);
@@ -28,19 +27,11 @@ function updateScore(score) {
 }
 
 function playAgain() {
-	var cont = confirm("Do you want to play again?");
-	if (cont == true) {
-		guessesLeft = 10;
-		num = Math.floor(Math.random() * 100 + 1);
-		updateScore(guessesLeft);
-		displayRandom(num);
-
-		document.getElementById("btnGuess").disabled=false;
-	}
-	else {
-		document.getElementById("btnGuess").disabled=true;
-		document.getElementById("btnGuess").value="Reset game below to play again!";
-	}
+	guessesLeft = 10;
+	num = Math.floor(Math.random() * 100 + 1);
+	updateScore(guessesLeft);
+	displayRandom(num);
+	document.getElementById("btnGuess").disabled=false;
 }
 
 function play() {
